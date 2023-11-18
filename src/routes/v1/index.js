@@ -2,7 +2,7 @@ const {createBooking,updateBooking,getOneBooking,getAllBooking,Delete}=require('
 const express=require('express');
 const router=express.Router();
 
-router.post('/create',createBooking);
+router.post('/',createBooking);
 router.patch('/:id',updateBooking)
 router.get('/',getAllBooking);
 router.delete('/:id',Delete);

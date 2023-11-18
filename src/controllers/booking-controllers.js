@@ -6,8 +6,9 @@ const booking=new bookingService();
 const createBooking=async(req,res)=>{
      try {
         const user=await booking.create(req.body);
+       // console.log(user.data);
         return res.json({
-            data:user
+            data:user.data
         })
      } catch (error) {
         console.log("something went wrong in the controllers of create");
