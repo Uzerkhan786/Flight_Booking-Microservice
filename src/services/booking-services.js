@@ -12,11 +12,17 @@ class bookingService{
             
             const flightId=data.flightId
            //console.log(flightId);
-            const a=await axios.get(`http://localhost:5000/api/v1/flights/${flightId}`);
-            const cost=a.data.data.price;
+            const response=await axios.get(`http://localhost:5000/api/v1/flights/${flightId}`);
+            //let  cost=a.data.data.price;
             //console.log(cost);
-           
-            const user=await this.booking.createBooking({...data,totalCost:cost});
+            //const user=await this.booking.createBooking({...data,totalCost:cost});
+
+
+            let result=response.data.data;
+            let a=data.noOfSeats;
+            const totalCost=result.price*a;
+            const  booked ={...data,totalCost};
+            const user=await this.booking.createBooking(booked)
             return user;
             
              
