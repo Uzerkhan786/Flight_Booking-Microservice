@@ -6,7 +6,7 @@ class bookingRepository{
     async createBooking(data){
         try {
             const user=await Booking.create(data);
-        return user;
+            return user;
         } catch (error) {
             throw {error:'something went wrong in the repository'}
       }

@@ -19,11 +19,19 @@ class bookingService{
 
 
             let result=response.data.data;
-            let a=data.noOfSeats;
-            const totalCost=result.price*a;
+            let userGivenSeats=data.noOfSeats;
+            const flightLeftSeats=result.totalSeat;
+            if(userGivenSeats>flightLeftSeats){
+                throw {error:'There is no seats left in the flight'}
+            }
+            const totalCost=result.price*userGivenSeats;
             const  booked ={...data,totalCost};
-            const user=await this.booking.createBooking(booked)
-            return user;
+            const user=await this.booking.createBooking(booked);
+            console.log(data.noOfSeats);
+            const FlightURL=`http://localhost:5000/api/v1/flights/${flightId}`
+            const leftSeat=result.totalSeat-user.noOfSeats
+            const patchResult=await axios.patch(FlightURL,{totalSeat:leftSeat})
+            return  patchResult
             
              
         } catch (error) {
